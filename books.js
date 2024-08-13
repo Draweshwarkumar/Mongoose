@@ -22,20 +22,35 @@ const bookschema = new mongoose.Schema({
     },
     cost:{
         type: Number,
-    }
+        min:[1,"please enter a valid priced"],
+    },
+    category :{
+        type:String,
+        enum:["fiction","non-fiction"]
+    },
+    genre: [String]
 });
 
-const books = mongoose.model("books",bookschema);
+// const books = mongoose.model("books",bookschema);
 
-let book1 = new books({
-    name: "Mathematicx",
-    author: "RD Sharma",
-    cost: 1200,
-});
-book1.save()
-.then((res) =>{
+// let book1 = new books({
+//     name: "physics",
+//     author: "KC sinha",
+//     cost: 5,
+//     category: "fiction",
+//     genre:["comics","superheroes","fiction"],
+// });
+// book1.save()
+// .then((res) =>{
+//     console.log(res);
+// })
+// .catch((err) =>{
+//     console.log(err);
+// });
+
+books.findByIdAndUpdate("66ba2b3707ecede69f94fbcf",{cost:-5},{runValidators: true})
+.then((res)=>{
     console.log(res);
-})
-.catch((err) =>{
+}).catch((err)=>{
     console.log(err);
-});
+})
